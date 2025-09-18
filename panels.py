@@ -113,11 +113,11 @@ class F_RENAME_PT_bone_rename( F_RENAME_PANEL_INFO, bpy.types.Panel ):
 
 
         row = layout.row()
-        row.operator(f"{FUNC_BONE}.remove_prefix",text='>')
+        row.operator(f"{FUNC_BONE}.remove_prefix",text='->')
         row.operator(f"{FUNC_BONE}.add_prefix",text='+<')
         row.operator(f"{FUNC_BONE}.rename",text='Rename')
         row.operator(f"{FUNC_BONE}.add_suffix",text='>+')
-        row.operator(f"{FUNC_BONE}.remove_suffix",text='<')
+        row.operator(f"{FUNC_BONE}.remove_suffix",text='<-')
 
         layout.operator(f"{FUNC_BONE}.rename_by_bone_tree",text='Rename by Tree',icon='OUTLINER')
 

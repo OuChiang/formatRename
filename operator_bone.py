@@ -541,6 +541,7 @@ class F_RENAME_BONE_OT_Format_Helper(bpy.types.Operator):
 
         row_text(col,None,'Context')
         row_text(col,'{self}','{self}','Output Self Name','')
+        row_text(col,'{active}','{active}','Output Active Bone Name','')
         row_text(col,'{shape}','{shape}','Output Bone Shape Name','')
         row_text(col,'{parent}','{parent}','Output Parent Name','')
         row_text(col,'{user}','{user}','Output The Armature Name','')
