@@ -5,6 +5,6 @@ version = "0.0.2"
 tagline = "Format Rename"
 maintainer = "OuChiang"
 type = "add-on"
-tags = ["Object"]
+tags = ["3D View","Object","Rigging"]
 blender_version_min = "4.2.0"
 license = ['SPDX:GPL-3.0-or-later']
