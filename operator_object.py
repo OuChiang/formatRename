@@ -136,7 +136,7 @@ class Rename_Operator_Root:
         if obj.type == 'GREASEPENCIL':
             return getattr(data,'rep_gpencil')
         return getattr(data,f'rep_{obj.type.lower()}','')
-    def word_replace(self,context,obj,fromat_str,digits,order):
+    def word_replace(self,context,obj,fromat_str,digits,order,active_name):
         # order : {a} {A} {Aa} {-Aa} {AA} {-AA} {aa} {-aa} 
         fromat_str = rename_modules.rename_format_to_abc(fromat_str,order)
 
@@ -157,7 +157,7 @@ class Rename_Operator_Root:
             pt_name = pt.name if pt else ""
             fromat_str = fromat_str.replace("{parent}",pt_name)
         if "{active}" in fromat_str:
-            fromat_str = fromat_str.replace("{active}",context.object.name)
+            fromat_str = fromat_str.replace("{active}",active_name)
         if "{scene}" in fromat_str:
             fromat_str = fromat_str.replace("{scene}",context.scene.name)
         if "{view_layer}" in fromat_str:
@@ -183,9 +183,10 @@ class Rename_Operator_Root:
 
         digits = len(str(len(objs)))
         newList = []
+        active_object_name = context.object.name
         for i,old_name in enumerate(objs):
             Obj = bpy.data.objects[old_name]
-            replaced_str = self.word_replace(context,Obj,fromat_str,digits,i)
+            replaced_str = self.word_replace(context,Obj,fromat_str,digits,i,active_object_name)
             func_rename(Obj,replaced_str)
             newList.append(Obj.name)
         if use_order:
