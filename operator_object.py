@@ -136,12 +136,10 @@ class Rename_Operator_Root:
         if obj.type == 'GREASEPENCIL':
             return getattr(data,'rep_gpencil')
         return getattr(data,f'rep_{obj.type.lower()}','')
-    def word_replace(self,context,obj,fromat_str,digits,order,active_name):
+    def word_replace(self,context,obj,fromat_str,order,active_name):
         # order : {a} {A} {Aa} {-Aa} {AA} {-AA} {aa} {-aa} 
         fromat_str = rename_modules.rename_format_to_abc(fromat_str,order)
 
-        #// Index : {i} {i,start} {i,start,digital}
-        #//fromat_str = rename_modules.rename_format_to_index(fromat_str,order,digits)
 
         # Index : {###}
         fromat_str = rename_modules.rename_format_to_number(fromat_str,order)
@@ -181,12 +179,11 @@ class Rename_Operator_Root:
         use_order = is_use_order()
         objs = get_objs(context)
 
-        digits = len(str(len(objs)))
         newList = []
         active_object_name = context.object.name
         for i,old_name in enumerate(objs):
             Obj = bpy.data.objects[old_name]
-            replaced_str = self.word_replace(context,Obj,fromat_str,digits,i,active_object_name)
+            replaced_str = self.word_replace(context,Obj,fromat_str,i,active_object_name)
             func_rename(Obj,replaced_str)
             newList.append(Obj.name)
         if use_order:

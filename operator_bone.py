@@ -240,7 +240,7 @@ class F_RENAME_BONE_OT_Copy_A_To_B(bpy.types.Operator):
 
 # [ Rename ]
 class Rename_Operator_Root:
-    def word_replace(self,context,bone,fromat_str,digits,order,active_name):
+    def word_replace(self,context,bone,fromat_str,order,active_name):
         # order : {a} {A} {Aa} {-Aa} {AA} {-AA} {aa} {-aa} 
         fromat_str = rename_modules.rename_format_to_abc(fromat_str,order)
 
@@ -303,11 +303,10 @@ class Rename_Operator_Root:
         if not bones : 
             return {'FINISHED'}
         active_bone = get_active_bone(context).name
-        digits = len(str(len(bones)))
         newList = []
         for i,bone in enumerate(bones):
             old_name = bone.name
-            replaced_str = self.word_replace(context,bone,fromat_str,digits,i,active_bone)
+            replaced_str = self.word_replace(context,bone,fromat_str,i,active_bone)
             func_rename(bone,replaced_str)#f_rename[self.mode](bone,replaced_str)
             print(f'{old_name} is renamed to {bone.name}')
             newList.append(bone.name)
