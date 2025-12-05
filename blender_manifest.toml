@@ -1,7 +1,7 @@
 schema_version = "1.0.0"
 id = "format_rename"
 name = "Format Rename"
-version = "0.0.2"
+version = "0.0.4"
 tagline = "Format Rename"
 maintainer = "OuChiang"
 type = "add-on"

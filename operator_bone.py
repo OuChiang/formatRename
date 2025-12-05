@@ -588,41 +588,29 @@ class F_RENAME_BONE_OT_Select_By_Name(poll_replace,bpy.types.Operator):
         deselect_mode[context.mode](action='DESELECT')
 
         # Re-select
-        def select_back_bones(bones_list):
-            for b in bones_list:
-                b.select = True
-            if not context.active_bone not in bones_list:
-                new_active = context.object.data.bones.get(bones_list[0].name)
-                context.object.data.bones.active = new_active
-        
-        def select_back_bones_Bl5(bones_list,modeType):
-            if modeType == 'POSE':
-                pose_bones = context.object.pose.bones
-                bones_in_mode = []
-                for b in bones_list:
-                    poseBone = pose_bones.get(b.name,None)
+        if context.mode == 'POSE':
+            pose_bones = context.object.pose.bones
+            for bone in new_list:
+                if context.blend_data.version[0]<5:
+                    bone.select = True
+                else:
+                    poseBone = pose_bones.get(bone.name,None)
                     poseBone.select = True
-                    if poseBone:
-                        bones_in_mode.append(poseBone)
-                if not context.object.data.bones.active in bones_list:
-                    context.object.data.bones.active = bones_list[0]
-            if modeType == 'EDIT_ARMATURE':
-                edit_bones = context.object.data.edit_bones
-                bones_in_mode = []
-                for b in bones_list:
-                    editBone = edit_bones.get(b.name,None)
-                    editBone.select = True
-                    editBone.select_head = True
-                    editBone.select_tail = True
-                    if editBone:
-                        bones_in_mode.append(editBone)
-                if not edit_bones.active in bones_in_mode:
-                    edit_bones.active = bones_in_mode[0]
+            if not context.object.data.bones.active in new_list:
+                context.object.data.bones.active = new_list[0]
+        if context.mode == 'EDIT_ARMATURE':
+            edit_bones = context.object.data.edit_bones
+            bones_in_mode = []
+            for b in new_list:
+                editBone = edit_bones.get(b.name,None)
+                editBone.select = True
+                editBone.select_head = True
+                editBone.select_tail = True
+                if editBone:
+                    bones_in_mode.append(editBone)
+            if not edit_bones.active in bones_in_mode:
+                edit_bones.active = bones_in_mode[0]
 
-        if context.blend_data.version[0]>=5:
-            select_back_bones_Bl5(new_list,context.mode)
-        else:
-            select_back_bones(new_list)
 
         return {'FINISHED'}
 
