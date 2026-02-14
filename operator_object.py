@@ -93,6 +93,7 @@ class F_RENAME_OBJ_OT_Set_Team(bpy.types.Operator):
     """Set selected objects to team"""
     bl_idname = "format_rename_object.set_team"
     bl_label = "Object Set Team"
+    bl_options = {'REGISTER','UNDO'}
     teamID : bpy.props.StringProperty( default='A' )
     @classmethod
     def poll(cls, context):
@@ -194,7 +195,8 @@ class F_RENAME_OBJ_OT_Rename(Rename_Operator_Root,bpy.types.Operator):
     """Format rename objects"""
     bl_idname = "format_rename_object.rename"
     bl_label = "Rename"
-    
+    bl_options = {'REGISTER','UNDO'}
+
     def execute(self, context):
         func_rename = lambda obj,replaced_str: setattr(obj,'name',replaced_str)
         self.exe_rename(context,func_rename)
@@ -204,6 +206,7 @@ class F_RENAME_OBJ_OT_Add_Prefix(Rename_Operator_Root,bpy.types.Operator):
     """Add Prefix To Object Name"""
     bl_idname = "format_rename_object.add_prefix"
     bl_label = "Add Prefix"
+    bl_options = {'REGISTER','UNDO'}
     
     def execute(self, context):
         func_rename = lambda obj,replaced_str: setattr(obj,'name',replaced_str+obj.name)
@@ -214,6 +217,7 @@ class F_RENAME_OBJ_OT_Add_Suffix(Rename_Operator_Root,bpy.types.Operator):
     """Add Suffix To Object Name"""
     bl_idname = "format_rename_object.add_suffix"
     bl_label = "Add Suffix"
+    bl_options = {'REGISTER','UNDO'}
     
     def execute(self, context):
         func_rename = lambda obj,replaced_str: setattr(obj,'name',obj.name+replaced_str)
@@ -236,6 +240,7 @@ class F_RENAME_OBJ_OT_Remove_Prefix(bpy.types.Operator):
     """Remove Object Name Frist Character"""
     bl_idname = "format_rename_object.remove_prefix"
     bl_label = "Remove Frist Character"
+    bl_options = {'REGISTER','UNDO'}
     is_delete_frist : bpy.props.BoolProperty(default=True)
     
     def execute(self, context):
@@ -246,6 +251,7 @@ class F_RENAME_OBJ_OT_Remove_Suffix(bpy.types.Operator):
     """Remove Object Name Last Character"""
     bl_idname = "format_rename_object.remove_suffix"
     bl_label = "Remove Last Character"
+    bl_options = {'REGISTER','UNDO'}
     is_delete_frist : bpy.props.BoolProperty(default=True)
     
     def execute(self, context):
@@ -258,6 +264,7 @@ class F_RENAME_OBJ_OT_Copy_To_Others(bpy.types.Operator):
     """Copy active object name to other selected objects"""
     bl_idname = "format_rename_object.copy_to_others"
     bl_label = "Copy name"
+    bl_options = {'REGISTER','UNDO'}
 
     def execute(self, context):
         #ordered,objs = get_objs(context)
@@ -290,6 +297,7 @@ class F_RENAME_OBJ_OT_Swap_Name(bpy.types.Operator):
     """Swap two object names"""
     bl_idname = "format_rename_object.swap_name"
     bl_label = "Switch Name"
+    bl_options = {'REGISTER','UNDO'}
     @classmethod
     def poll(cls, context):
         return len(context.selected_objects)==2
@@ -310,6 +318,7 @@ class F_RENAME_OBJ_OT_Swap_List_Rotation(bpy.types.Operator):
 ['A','B','C'] to ['C','A','B']"""
     bl_idname = "format_rename_object.swap_list_rotation"
     bl_label = "Switch Name"
+    bl_options = {'REGISTER','UNDO'}
 
     def execute(self, context):
         objs = context.scene.get(OBJ_SELECTED_ORDER,[])
@@ -334,6 +343,7 @@ class F_RENAME_OBJ_OT_Swap_A_And_B(bpy.types.Operator):
 ['A','B'] to ['B','A']"""
     bl_idname = "format_rename_object.swap_a_and_b"
     bl_label = "Switch A & B"
+    bl_options = {'REGISTER','UNDO'}
     @classmethod
     def poll(cls, context):
         return all(context.scene.get(name,None) for name in [OBJ_TEAM_A,OBJ_TEAM_B])
@@ -362,6 +372,7 @@ class F_RENAME_OBJ_OT_Copy_A_To_B(bpy.types.Operator):
     """Copy A team's name to B team"""
     bl_idname = "format_rename_object.copy_a_to_b"
     bl_label = "Copy A & B"
+    bl_options = {'REGISTER','UNDO'}
     @classmethod
     def poll(cls, context):
         return all(context.scene.get(name,None) for name in [OBJ_TEAM_A,OBJ_TEAM_B])
@@ -386,6 +397,7 @@ class F_RENAME_OBJ_OT_Copy_To_Data(bpy.types.Operator):
     """Copy object name to data"""
     bl_idname = "format_rename_object.copy_to_data"
     bl_label = "Fallow Data Name"
+    bl_options = {'REGISTER','UNDO'}
     
     def execute(self, context):
         Objects = context.selected_objects[:]
@@ -480,6 +492,7 @@ class F_RENAME_OBJ_OT_Select_By_Name(bpy.types.Operator):
     """"Select By Object Name"""
     bl_idname = "format_rename_object.select_by_name"
     bl_label = "Select By Object Name"
+    bl_options = {'REGISTER','UNDO'}
 
     def execute(self, context):
         Replace = context.scene.format_rename_replace
@@ -518,6 +531,7 @@ class F_RENAME_OBJ_OT_Replace_Name(bpy.types.Operator):
     """"Replace Object Name"""
     bl_idname = "format_rename_object.replace_name"
     bl_label = "Replace Object Name"
+    bl_options = {'REGISTER','UNDO'}
 
     def execute(self, context):
         Replace = context.scene.format_rename_replace

@@ -93,6 +93,7 @@ class F_RENAME_BONE_OT_Copy_To_Others(bpy.types.Operator):
     """Copy active bone's name to others"""
     bl_idname = "format_rename_bone.copy_to_others"
     bl_label = "Copy name"
+    bl_options = {'REGISTER','UNDO'}
 
     def execute(self, context):
         selected_bones = get_selected_bones(context)
@@ -123,6 +124,7 @@ class F_RENAME_BONE_OT_Swap_Name(bpy.types.Operator):
     """Swap two bone names"""
     bl_idname = "format_rename_bone.swap_name"
     bl_label = "Switch Name"
+    bl_options = {'REGISTER','UNDO'}
     @classmethod
     def poll(cls, context):
         bones = get_selected_bones(context)
@@ -147,6 +149,7 @@ class F_RENAME_BONE_OT_Order_Set_Team(class_use_order,bpy.types.Operator):
     """Set bones in team A or team B"""
     bl_idname = "format_rename_bone.set_team"
     bl_label = "Set Bone Teams"
+    bl_options = {'REGISTER','UNDO'}
     teamID : bpy.props.StringProperty(default='A')
     
     def execute(self, context):
@@ -160,6 +163,7 @@ class F_RENAME_BONE_OT_Swap_List_Rotation(class_use_order,bpy.types.Operator):
 ['A','B','C'] to ['C','A','B']"""
     bl_idname = "format_rename_bone.swap_list_rotation"
     bl_label = "Switch Name"
+    bl_options = {'REGISTER','UNDO'}
 
     def execute(self, context):
         order_bones = context.scene.get(BONE_SELECTED_ORDER,[])
@@ -188,6 +192,7 @@ class F_RENAME_BONE_OT_Swap_A_And_B(bpy.types.Operator):
 ['A','B'] to ['B','A']"""
     bl_idname = "format_rename_bone.swap_a_and_b"
     bl_label = "Switch A & B"
+    bl_options = {'REGISTER','UNDO'}
     @classmethod
     def poll(cls, context):
         for team in [BONE_TEAM_A,BONE_TEAM_B]:
@@ -220,6 +225,7 @@ class F_RENAME_BONE_OT_Copy_A_To_B(bpy.types.Operator):
     """Copy A team's name to B team"""
     bl_idname = "format_rename_bone.copy_a_to_b"
     bl_label = "Copy A & B"
+    bl_options = {'REGISTER','UNDO'}
     @classmethod
     def poll(cls, context):
         return all(context.scene.get(name,None) for name in [BONE_TEAM_A,BONE_TEAM_B])
@@ -320,6 +326,7 @@ class F_RENAME_BONE_OT_Rename(Rename_Operator_Root,bpy.types.Operator):
     """Format rename bones"""
     bl_idname = "format_rename_bone.rename"
     bl_label = "Rename"
+    bl_options = {'REGISTER','UNDO'}
     
     def execute(self, context):
         func_rename=lambda bone,replaced_str: setattr(bone,'name',replaced_str)
@@ -330,6 +337,7 @@ class F_RENAME_BONE_OT_Add_Prefix(Rename_Operator_Root,bpy.types.Operator):
     """Add Prefix To Bone Name"""
     bl_idname = "format_rename_bone.add_prefix"
     bl_label = "Add Prefix"
+    bl_options = {'REGISTER','UNDO'}
     
     def execute(self, context):
         func_rename=lambda bone,replaced_str: setattr(bone,'name',replaced_str+bone.name)
@@ -340,6 +348,7 @@ class F_RENAME_BONE_OT_Add_Suffix(Rename_Operator_Root,bpy.types.Operator):
     """Add Suffix To Bone Name"""
     bl_idname = "format_rename_bone.add_suffix"
     bl_label = "Add Suffix"
+    bl_options = {'REGISTER','UNDO'}
     mode : bpy.props.StringProperty()
     
     def execute(self, context):
@@ -366,6 +375,7 @@ class F_RENAME_BONE_OT_Remove_Prefix(bpy.types.Operator):
     """Remove Bone Name Frist Character"""
     bl_idname = "format_rename_bone.remove_prefix"
     bl_label = "Remove Frist Character"
+    bl_options = {'REGISTER','UNDO'}
     mode : bpy.props.StringProperty()
     
     def execute(self, context):
@@ -378,6 +388,7 @@ class F_RENAME_BONE_OT_Remove_Suffix(bpy.types.Operator):
     """Remove Bone Name Last Character"""
     bl_idname = "format_rename_bone.remove_suffix"
     bl_label = "Remove Bone Last Character"
+    bl_options = {'REGISTER','UNDO'}
     mode : bpy.props.StringProperty()
     
     def execute(self, context):
@@ -563,6 +574,7 @@ class F_RENAME_BONE_OT_Select_By_Name(poll_replace,bpy.types.Operator):
     """"Select By Object Name"""
     bl_idname = "format_rename_bone.select_by_name"
     bl_label = "Select By Object Name"
+    bl_options = {'REGISTER','UNDO'}
 
     def execute(self, context):
         Replace = context.scene.format_rename_replace
@@ -620,6 +632,7 @@ class F_RENAME_BONE_OT_Replace_Name(poll_replace,bpy.types.Operator):
     """"Replace Object Name"""
     bl_idname = "format_rename_bone.replace_name"
     bl_label = "Replace Bones Name"
+    bl_options = {'REGISTER','UNDO'}
 
     def execute(self, context):
         Replace = context.scene.format_rename_replace
